@@ -32,8 +32,13 @@ module.exports = {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
+        config.node = {
+          console: 'mock',
+          fs:  'empty',
+          net: 'empty',
+          tls: 'empty'
+        }
       }
     }
   }
 }
-
