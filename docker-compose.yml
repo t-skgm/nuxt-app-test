@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app: &default
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: nuxt-app
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/usr/app
+      - node-modules:/usr/app/node_modules
+    environment:
+      - 'TZ=Asia/Tokyo'
+    ports:
+      - '3000:3000'
+volumes:
+  node-modules: {}
+
