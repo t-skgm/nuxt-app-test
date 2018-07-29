@@ -26,11 +26,13 @@ export default {
   },
   methods: {
     ...mapActions({
-      getPosts: 'blog/GET_POSTS'
+      getPosts: 'blog/getPosts'
     })
   },
   async fetch ({store, params}) {
-    await store.dispatch('blog/GET_POSTS')
+    await store.dispatch('blog/getPosts', {
+      limit: 10
+    })
   }
 }
 </script>
