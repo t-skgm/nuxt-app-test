@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1><nuxt-link :to="'index'">{{blogInfo.title}}</nuxt-link></h1>
+    <h1><nuxt-link :to="{ name: 'blog' }">{{blogInfo.title}}</nuxt-link></h1>
     <section>
       <h2>Posts</h2>
       <section class="post" v-for="post in posts" :key="post.id">
