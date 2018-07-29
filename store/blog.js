@@ -9,16 +9,19 @@ const state = () => ({
 })
 
 const mutations = {
-  setPosts (state, { blog, posts }) {
-    state.blogInfo = blog
+  setPosts (state, posts) {
     state.posts = posts
+  },
+  setBlogInfo (state, blog) {
+    state.blogInfo = blog
   },
 }
 
 const actions = {
   async getPosts ({ commit }, opts) {
-    const res = await client.blogPosts(blogName, opts)
-    commit('setPosts', res)
+    const { blog, posts } = await client.blogPosts(blogName, opts)
+    commit('setBlogInfo', blog)
+    commit('setPosts', posts)
   }
 }
 
