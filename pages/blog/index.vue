@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <h1><a :href="blog.url">{{blog.title}}</a></h1>
+    <h1><a :href="blogInfo.url">{{blogInfo.title}}</a></h1>
     <section>
       <h2>Posts</h2>
       <section class="post" v-for="post in posts" :key="post.id">
-        <h3><a :href="blog.post_url">{{post.title}}</a></h3>
-        <p>{{Object.keys(post)}}</p>
+        <h3><a :href="post.post_url">{{post.title}}</a></h3>
+        <p>{{post.tags}}</p>
         <div class="blog-body" v-html="post.body"></div>
       </section>
     </section>
@@ -13,18 +13,24 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { client } from '../../services/tumblr-client'
-
-const blogName = 't-skgm'
+import { mapActions } from 'vuex'
 
 export default {
-  async asyncData ({ params }) {
-    // const { blog: blog } = await client.blogInfo(blogName)
-    const postsAll = await client.blogPosts(blogName)
-    return {
-      ...postsAll
+  computed: {
+    blogInfo () {
+      return this.$store.state.blog.blogInfo
+    },
+    posts () {
+      return this.$store.state.blog.posts
     }
+  },
+  methods: {
+    ...mapActions({
+      getPosts: 'blog/GET_POSTS'
+    })
+  },
+  async fetch ({store, params}) {
+    await store.dispatch('blog/GET_POSTS')
   }
 }
 </script>
